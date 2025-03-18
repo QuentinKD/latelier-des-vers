@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Poem Creator</title>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="bloc-notes.png" />
+</head>
+<body>
+
+  <main class="main-content">
+    <div class="app-icon">
+      <img src="bloc-notes.png" alt="" class="profile-img">
+      <!-- <span>🗒</span> -->
+    </div>
+
+    <h1>Poem Creator</h1>
+    <p>
+      Importer un fichier texte,<br/>
+      puis exporter le résultat au format PDF.
+    </p>
+
+    <div class="button-container">
+      <button id="import-btn">Importer un fichier</button>
+      <input type="file" id="file-input" accept=".txt" />
+
+      <button id="run-btn">Lancer le programme</button>
+
+      <button id="export-btn">Exporter en PDF</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

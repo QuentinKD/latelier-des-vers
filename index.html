@@ -1,42 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>L'Atelier des Vers</title>
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" type="image/png" sizes="32x32" href="bloc-notes.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Poèmes</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-
-  <main class="main-content">
-    <div class="app-icon">
-      <img src="bloc-notes.png" alt="" class="profile-img">
+    <div class="container">
+        <h1>Générateur de Poèmes</h1>
+        
+        <button id="generate-random">Générer un poème aléatoire</button>
+        
+        <div class="manual-selection">
+            <h2>Composer un poème</h2>
+            <select id="part1-select">
+                <option value="">Sélectionnez la partie 1</option>
+            </select>
+            <select id="part2-select">
+                <option value="">Sélectionnez la partie 2</option>
+            </select>
+            <button id="generate-manual">Assembler et exporter</button>
+        </div>
     </div>
-
-    <h1>L'Atelier des Vers</h1>
-    <p>
-      Importer un fichier texte,<br/>
-      puis exporter le résultat au format PDF.
-    </p>
-
-    <div class="button-container">
-      <button id="import-btn">Importer un fichier</button>
-      <input type="file" id="file-input" accept=".txt" />
-
-      <button id="run-btn">Lancer le programme</button>
-
-      <button id="export-btn">Exporter en PDF</button>
-    </div>
-
-    <div class="pdf-preview-container">
-      <h2>Aperçu du PDF</h2>
-      <iframe id="pdf-preview" class="pdf-preview"></iframe>
-    </div>
-    
-  </main>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,64 +1,74 @@
-let fileContent = "";
-const importBtn = document.getElementById('import-btn');
-const fileInput = document.getElementById('file-input');
-const runBtn = document.getElementById('run-btn');
-const exportBtn = document.getElementById('export-btn');
-const pdfPreviewContainer = document.querySelector('.pdf-preview-container');
-const pdfPreview = document.getElementById('pdf-preview');
+document.addEventListener("DOMContentLoaded", () => {
+    const generateRandomBtn = document.getElementById("generate-random");
+    const generateManualBtn = document.getElementById("generate-manual");
+    const part1Select = document.getElementById("part1-select");
+    const part2Select = document.getElementById("part2-select");
 
-// Cacher l'aperçu au départ
-pdfPreviewContainer.style.display = "none";
+    let poemsDatabase = { part1: [], part2: [] };
 
-importBtn.addEventListener('click', () => fileInput.click());
+    // Charger la liste des fichiers depuis le JSON
+    fetch("poems.json")
+        .then(response => response.json())
+        .then(data => {
+            poemsDatabase = data;
+            populateDropdowns();
+        })
+        .catch(error => console.error("Erreur lors du chargement des fichiers :", error));
 
-fileInput.addEventListener('change', (event) => {
-  const file = event.target.files[0];
-  if (!file) return;
+    function populateDropdowns() {
+        poemsDatabase.part1.forEach(file => {
+            const option = document.createElement("option");
+            option.value = file;
+            option.textContent = file.split("/").pop().replace("_enfance.txt", "");
+            part1Select.appendChild(option);
+        });
 
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    fileContent = e.target.result;
-    alert("Fichier importé avec succès !");
-  };
-  reader.readAsText(file);
+        poemsDatabase.part2.forEach(file => {
+            const option = document.createElement("option");
+            option.value = file;
+            option.textContent = file.split("/").pop().replace("_adolescence.txt", "");
+            part2Select.appendChild(option);
+        });
+    }
+
+    function readFileContent(filePath) {
+        return fetch(filePath)
+            .then(response => response.text())
+            .catch(error => {
+                console.error("Erreur de lecture :", error);
+                return "Erreur de lecture du fichier.";
+            });
+    }
+
+    generateRandomBtn.addEventListener("click", async () => {
+        const randomPart1 = poemsDatabase.part1[Math.floor(Math.random() * poemsDatabase.part1.length)];
+        const randomPart2 = poemsDatabase.part2[Math.floor(Math.random() * poemsDatabase.part2.length)];
+
+        const content1 = await readFileContent(randomPart1);
+        const content2 = await readFileContent(randomPart2);
+
+        generatePDF(`${content1}\n\n${content2}`);
+    });
+
+    generateManualBtn.addEventListener("click", async () => {
+        const selectedPart1 = part1Select.value;
+        const selectedPart2 = part2Select.value;
+
+        if (!selectedPart1 || !selectedPart2) {
+            alert("Veuillez sélectionner les deux parties du poème.");
+            return;
+        }
+
+        const content1 = await readFileContent(selectedPart1);
+        const content2 = await readFileContent(selectedPart2);
+
+        generatePDF(`${content1}\n\n${content2}`);
+    });
+
+    function generatePDF(content) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.text(content, 20, 30);
+        doc.save("poeme.pdf");
+    }
 });
-
-runBtn.addEventListener('click', () => {
-  if (!fileContent) {
-    alert("Veuillez importer un fichier.");
-    return;
-  }
-
-  fileContent = modifyFileContent(fileContent);
-
-  alert("Le fichier a été modifié !");
-  updatePdfPreview(fileContent);
-  pdfPreviewContainer.style.display = "block"; // Afficher l'aperçu
-});
-
-function modifyFileContent(text) {
-  return text; // À modifier selon le programme de traitement
-}
-
-exportBtn.addEventListener('click', () => {
-  if (!fileContent) {
-    alert("Veuillez d'abord modifier un fichier.");
-    return;
-  }
-
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-  doc.text(fileContent, 20, 30);
-  doc.save("modified.pdf");
-});
-
-function updatePdfPreview(content) {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-  doc.text(content, 20, 30);
-
-  const pdfBlob = doc.output("blob");
-  const url = URL.createObjectURL(pdfBlob);
-  
-  pdfPreview.src = url;
-}

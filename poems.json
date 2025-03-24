@@ -1,10 +1,10 @@
 {
     "part1": [
-        "enfance/agathe_enfance.txt",
-        "enfance/chloee_enfance.txt"
+        "texts/enfance/agathe_enfance.txt",
+        "texts/enfance/chloee_enfance.txt"
     ],
     "part2": [
-        "adolescence/agathe_adolescence.txt",
-        "adolescence/amina_adolescence.txt"
+        "texts/adolescence/agathe_adolescence.txt",
+        "texts/adolescence/amina_adolescence.txt"
     ]
 }

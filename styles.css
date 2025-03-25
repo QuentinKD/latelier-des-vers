@@ -18,12 +18,25 @@ body {
 }
 
 .container {
+    display: flex;
+    flex-direction: column;
     max-width: 80%;
     margin: auto;
     padding: 20px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
-    height: 50%;
+    align-items: center;
+    text-align: center;
+}
+
+h1 {
+    padding: 10px;
+    font-weight: 500;
+}
+
+h2 {
+    padding: 10px;
+    font-weight: 500;
 }
 
 button {

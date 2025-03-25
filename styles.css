@@ -1,12 +1,12 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #1e1e2e;
+    background: linear-gradient(135deg, #2d0052, #002651);
     color: white;
     text-align: center;
     display: flex;
     justify-items: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .container {

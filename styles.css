@@ -64,6 +64,6 @@ select {
 
 .image {
     padding: 10px;
-    height: 100px;
+    max-height: 100px;
     width: auto;
 }
